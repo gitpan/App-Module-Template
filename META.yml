@@ -20,7 +20,6 @@ no_index:
 requires:
   Carp: 0
   Config::General: 0
-  Cwd: 0
   File::Basename: 0
   File::Copy: 0
   File::HomeDir: 0
@@ -32,4 +31,4 @@ requires:
   Template: 0
   Try::Tiny: 0
   perl: 5.016
-version: 0.02
+version: 0.03
