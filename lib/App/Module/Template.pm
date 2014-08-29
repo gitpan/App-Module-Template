@@ -5,7 +5,7 @@ use 5.016;
 use strict;
 use warnings;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use base qw(Exporter);
 
@@ -19,7 +19,6 @@ use File::HomeDir;
 use File::Path qw/make_path/;
 use File::Spec;
 use Getopt::Std;
-use IO::Prompt::Tiny qw/prompt/;
 use POSIX qw(strftime);
 use Template;
 use Try::Tiny;
@@ -47,29 +46,29 @@ sub run {
     my $class = shift;
 
     my %opt;
-    # -t template dir, location of template files
     # -c config file
-    getopts('t:c:', \%opt);
+    # -m module name
+    # -t template dir, location of template files
+    getopts('c:m:t:', \%opt);
 
-    my $prompt = 'module-template - Enter module name>';
+    unless ( ( exists $opt{m} ) and ( defined $opt{m} ) ) {
+        croak "-m <Module::Name> is required. exiting...\n";
+    }
 
-    my $module   = $ARGV[0] || prompt($prompt);
+    my $module   = $opt{m};
     my $dist     = $module; $dist =~ s/::/-/gmsx;
     my $file     = $module; $file =~ s/.*:://msx; $file .= '.pm';
-    my $dist_dir = File::Spec->catfile( File::Spec->curdir, $dist );
+    my $dist_dir = File::Spec->catdir( File::Spec->curdir, $dist );
     my $tmpl_vars;
 
     try {
         _validate_module_name($module);
     } catch {
-        say "$_\n\nmodule-template exiting...";
-        exit();
+        croak "$_ module-template. exiting...";
     };
 
     if ( _module_path_exists($dist_dir) ) {
-        say "Destination directory $dist_dir exists";
-        say 'exiting...';
-        exit();
+        croak "Destination directory $dist_dir exists. exiting...";
     }
 
     my $template_dir = _get_template_path($opt{t});
@@ -350,8 +349,6 @@ App::Module::Template is configured by ~/.module-template/config. See module-tem
 =item * File::Spec
 
 =item * Getopt::Std
-
-=item * IO::Prompt::Tiny
 
 =item * POSIX
 

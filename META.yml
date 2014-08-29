@@ -26,9 +26,8 @@ requires:
   File::Path: 0
   File::Spec: 0
   Getopt::Std: 0
-  IO::Prompt::Tiny: 0
   POSIX: 0
   Template: 0
   Try::Tiny: 0
   perl: 5.016
-version: 0.05
+version: 0.06
