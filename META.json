@@ -4,7 +4,7 @@
       "Trevor S. Cornpropst <tscornpropst@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.142060",
    "license" : [
       "artistic_2"
    ],
@@ -48,5 +48,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "0.07"
+   "version" : "0.09"
 }

@@ -3,7 +3,7 @@ package App::Module::Template::Initialize;
 use strict;
 use warnings;
 
-our $VERSION = '0.07';
+our $VERSION = '0.09';
 
 use base qw(Exporter);
 
@@ -126,7 +126,7 @@ email            = author@example.com
 support_email    = support@example.com
 min_perl_version = 5.016
 eumm_version     = 6.63
-license_type     = Artistic_2_0
+license_type     = artistic_2
 license_body     =<<END_OF_LICENSE
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
@@ -216,7 +216,7 @@ use ExtUtils::MakeMaker [% eumm_version %];
 
 my %WriteMakefileArgs = (
     NAME                  => '[% module %]',
-    AUTHOR                => q{[% author %] [% email %]},
+    AUTHOR                => '[% author %] <[% email %]>',
     VERSION_FROM          => '[% module_path %]',
     ABSTRACT_FROM         => '[% module_path %]',
     LICENSE               => '[% license_type %]',
@@ -256,7 +256,7 @@ unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
     unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
-WriteMakeFile(%WriteMakefileArgs);
+WriteMakefile(%WriteMakefileArgs);
 END_OF_BODY
     },
     license => {
@@ -774,6 +774,9 @@ verbose = 8
 # Configure these policies
 [InputOutput::RequireCheckedSyscalls]
 exclude_functions = print
+[Documentation::RequirePodSections]
+lib_sections = NAME | VERSION | SYNOPSIS | DESCRIPTION | SUBROUTINES/METHODS | DIAGNOSTICS | CONFIGURATION AND ENVIRONMENT | DEPENDENCIES | INCOMPATIBILITIES | BUGS AND LIMITATIONS | AUTHOR | COPYRIGHT AND LICENSE
+script_sections = NAME | USAGE | DESCRIPTION | REQUIRED ARGUMENTS | OPTIONS | DIAGNOSTICS | EXIT STATUS | CONFIGURATION | DEPENDENCIES | INCOMPATIBILITIES | BUGS AND LIMITATIONS | AUTHOR | COPYRIGHT AND LICENSE
 
 # Do not load these policies
 [-CodeLayout::ProhibitParensWithBuiltins]
