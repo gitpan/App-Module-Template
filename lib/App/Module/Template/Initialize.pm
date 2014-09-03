@@ -3,7 +3,7 @@ package App::Module::Template::Initialize;
 use strict;
 use warnings;
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 use base qw(Exporter);
 
@@ -34,7 +34,7 @@ App::Module::Template::Initialize - Templates to pre-populate template directory
 
 =head1 VERSION
 
-This documentation refers to App::Module::Template::Initialize version 0.01.
+This documentation refers to App::Module::Template::Initialize version 0.10.
 
 =head1 SYNOPSIS
 
@@ -88,15 +88,15 @@ None reported.
 
 No bugs have been reported.
 
-Please report any issues or feature requests to Trevor S. Cornpropst C<tscornpropst@gmail.com>. Patches are welcome.
+Please report any issues or feature requests to L<https://github.com/tscornpropst/App-Module-Template/issues>. Patches are welcome.
 
 =head1 AUTHOR
 
-Trevor S. Cornpropst
+Trevor S. Cornpropst <tscornpropst@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014 Trevor S. Cornpropst C<< tscornpropst@gmail.com >>. All rights reserved.
+Copyright (c) 2014 Trevor S. Cornpropst <tscornpropst@gmail.com>. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
@@ -123,7 +123,7 @@ our $TEMPLATES = {
         body => <<'END_OF_BODY',
 author           = Default Author
 email            = author@example.com
-support_email    = support@example.com
+support_address  = support@example.com
 min_perl_version = 5.016
 eumm_version     = 6.63
 license_type     = artistic_2
@@ -580,15 +580,15 @@ None reported.
 
 No bugs have been reported.
 
-Please report any issues or feature requests to C<[% support_email %]>. Patches are welcome.
+Please report any issues or feature requests to L<[% support_address %]>. Patches are welcome.
 
 =head1 AUTHOR
 
-[% author %] C<< [% email %] >>
+[% author %] <[% email %]>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) [% year %], [% author %] C<< [% email %] >>. All rights reserved.
+Copyright (c) [% year %], [% author %] <[% email %]>. All rights reserved.
 
 [% license_body %]
 
@@ -705,15 +705,15 @@ None reported.
 
 No bugs have been reported.
 
-Please report any issues or feature requests to C<[% support_email %]>. Patches are welcome.
+Please report any issues or feature requests to L<[% support_address %]>. Patches are welcome.
 
 =head1 AUTHOR
 
-[% author %] C<< [% email %] >>
+[% author %] <[% email %]>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) [% year %], [% author %] C<< [% email %] >>. All rights reserved.
+Copyright (c) [% year %], [% author %] <[% email %]>. All rights reserved.
 
 [% license_body %]
 
@@ -836,7 +836,24 @@ plan skip_all => "Test::Pod $min_tp required for testing POD" if $@;
 
 all_pod_files_ok();
 END_OF_BODY
-    }
+    },
+    kwalitee_test => {
+        file => 'kwalitee.t',
+        path => '.module-template/templates/xt/release',
+        body => <<'END_OF_BODY',
+#!perl
+
+use strict;
+use warnings;
+
+use Test::More;
+use Test::Kwalitee qw/kwalitee_ok/;
+
+kwalitee_ok();
+
+done_testing();
+END_OF_BODY
+    },
 };
 
 #-------------------------------------------------------------------------------
